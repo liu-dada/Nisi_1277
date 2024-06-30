@@ -1,2 +1,3 @@
 # Nisi_1277
-Hazard ratio estimate with bootstrap
+Hazard ratio estimate function
+Bootstrap to caculate CI
