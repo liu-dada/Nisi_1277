@@ -1,16 +1,49 @@
-It contains some important functions and plotting R codes:
+## Hazard Ratio Estimation and Plotting in R
 
-hr_Bootstrap.R function: using bootstrap methods to estimate 95% CI of hazard ratio;
+This folder contains essential R functions and plotting scripts for estimating hazard ratios (HR) and visualizing their confidence intervals (CI) using both bootstrap and asymptotic methods. These tools are designed for comparative analysis across different methods and gender-specific groups.
 
-hr_Asymptotic.R function: using asymptotic methods to calculate 95% CI of hazard ratio;
+### Functions
 
-plot_Bootstrap.R: making hazard ratio plots for female and male from the output data of hr_Bootstrap();
+1. hr_Bootstrap.R
 
-plot_Asymptotic.R: making hazard ratio plots for female and male from the output data of hr_Asymptotic();
+Description: Estimates the 95% confidence interval (CI) for hazard ratios using bootstrap methods.
 
-plot_2methods.R: comparing the hazard ratio and corresponding CI's; 
+Usage: Apply this function when a non-parametric estimation of the hazard ratio CI is desired.
 
-band_Bootstrap.R: making band plot from the output data of hr_Bootstrap(); 
+2. hr_Asymptotic.R
 
-band_Asymptotic.R: making band plot from the output data of hr_Asymptotic();
+Description: Calculates the 95% confidence interval (CI) for hazard ratios using asymptotic methods.
 
+Usage: Use this function for parametric CI estimation based on large-sample properties.
+
+### Plotting Scripts
+
+3. plot_Bootstrap.R
+
+Description: Generates hazard ratio plots stratified by gender (female and male) using the output data from hr_Bootstrap().
+
+Usage: Ideal for visualizing bootstrap-based hazard ratio estimates and their confidence intervals.
+
+4. plot_Asymptotic.R
+
+Description: Creates hazard ratio plots stratified by gender (female and male) using the output data from hr_Asymptotic().
+
+Usage: Useful for visualizing asymptotic-based hazard ratio estimates and their confidence intervals.
+
+5. plot_2methods.R
+
+Description: Compares hazard ratios and their corresponding confidence intervals obtained from both bootstrap and asymptotic methods.
+
+Usage: Use this script to assess and compare the results from different estimation methods.
+
+6. band_Bootstrap.R
+
+Description: Produces a band plot from the bootstrap method's hazard ratio estimates.
+
+Usage: Visualize the range of bootstrap-based hazard ratio estimates over time or other dimensions.
+
+7. band_Asymptotic.R
+
+Description: Generates a band plot using the asymptotic method's hazard ratio estimates.
+
+Usage: Visualize the range of asymptotic-based hazard ratio estimates over time or other dimensions.
