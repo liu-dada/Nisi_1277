@@ -23,7 +23,7 @@ ini <- ini[,c(3,5:6)]
 names(ini) <- c('sex','Combination','iniage')
 ini$ini <- ini$iniage*30
 
-# load last significant day
+# load last day
 last <- Load.branch('last.Rdata')
 
 f <- Load.branch('band_female.Rdata')
