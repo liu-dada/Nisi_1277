@@ -1,0 +1,17 @@
+It contains some important functions and plotting R codes for simulation:
+
+simulation_func.R: using Gompertz distribution to simulate data for null and alternative scenario;
+
+bootstrap_func.R: using bootstrap methods to estimate 95% CI of hazard ratio;
+
+sim_asymptotic_func.R: using asymptotic method to estimate 95% CI of hazard ratio;
+
+sim_fpr_func.R: calculating positive rate for the simulated data;
+
+sim_null.R: simulating data for null scenario, and estimating and comparing hazard ratio and CI by bootstrap and asymptotic method;
+
+sim_alter.R: simulating data for alternative scenario, and estimating and comparing hazard ratio and CI by bootstrap and asymptotic method;
+
+sim_fpr_plot.R: plotting postive rate by days for bootstrap and asymptotic method;
+
+sim_plot_null_alter: plotting hazard rate for null and alternative scenario.
