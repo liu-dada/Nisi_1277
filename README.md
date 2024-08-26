@@ -1,3 +1,3 @@
-# Nisi_1277
+# Temporal Efficacy Profiler
 Hazard ratio estimate function
 Bootstrap and asymptotic method to caculate CI
