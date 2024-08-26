@@ -8,9 +8,9 @@ plot_Bootstrap.R: making hazard ratio plots for female and male from the output 
 
 plot_Asymptotic.R: making hazard ratio plots for female and male from the output data of hr_Asymptotic();
 
-plot_2methods.R: comparing the hazard ratio and corresponding CI's;
+plot_2methods.R: comparing the hazard ratio and corresponding CI's; 
 
-band_Bootstrap.R: making band plot from the output data of hr_Bootstrap();
+band_Bootstrap.R: making band plot from the output data of hr_Bootstrap(); 
 
 band_Asymptotic.R: making band plot from the output data of hr_Asymptotic();
 
