@@ -1,3 +1,1 @@
-# Nisi_1277
-Hazard ratio estimate function
-Bootstrap and asymptotic method to caculate CI
+This is a user friendly R code.
