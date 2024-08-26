@@ -1,49 +1,16 @@
-
-
-rm(list=ls())
-set.seed( 2011 )
-
-library(adapr)
-library(plyr)
-library(dplyr)
-library(survival)
-library(ggplot2)
-library(bshazard)
-library(scales)
-library(RColorBrewer)
-library(boot)
-library(tidyverse)
-library(tidyr)
 library(foreach)
 library(parallel)
 library(doParallel)
-
-source.file <-"se.R"
-project.id <- "Nisi_1277"
-source_info <- create_source_file_dir(source.description="Description of your program...")
-
-
-# Program body here
-
+library(ggplot2)
 #-----------------------------------------------------------------------------------------
-
-survdata <- Load.branch("clean2_delete.Rdata")
-
-#temp <- subset(survdata, Group=='NDGA'|Combination=="C2004_Control_0_")
-
-#remove c('NDGA_lo','NDGA_mid') because no female treatment
-
-dat2 <- subset(survdata, !(Group %in%c('NDGA_lo','NDGA_mid','17aE2_16m','17aE2_20m')))
-
-v <- unique(dat2$Combination)
-
-
+# load file
+survdata <- Load.branch("dat.Rdata")
 #-----------------------------------------------------------------------------------------
 #female
 fe <- subset(survdata,Sex=='f')
 
 se <- NULL
-for (i in unique(dat2$Cohort)) {
+for (i in unique(fe$Cohort)) {
 y <- subset(fe,Cohort==i)
 
 v <- unique(subset(y,Group!='Control')$Combination)
@@ -56,7 +23,6 @@ cluster <- makeCluster(totalCores[1]-1)
 
 registerDoParallel(cluster)
 
-
 se[[i]] <- foreach(i = 1:length(v),.packages = c('bshazard',
                                          'plyr','dplyr',
                                          'purrr',
@@ -67,17 +33,14 @@ se[[i]] <- foreach(i = 1:length(v),.packages = c('bshazard',
 #Stop cluster
 stopCluster(cluster)
 
-
-
 }
 
+save(se,'HRfemaleSE.Rdata')
 
-Write(se,'HRfemaleSE.Rdata')
-
-
+#------------------------------------------------------------------------------------
 #plot
 p <- NULL
-for (i in unique(dat2$Cohort)) {
+for (i in unique(fe$Cohort)) {
   temp <- se[[i]]
   p2 <- NULL
   for (j in 1:length(temp)) {
@@ -103,22 +66,17 @@ for (i in unique(dat2$Cohort)) {
   }
   p <- c(p,p2)
 }
-p[[1]]
 
-Graph('HRfemaleSE.pdf',width=12,height=6)
+pdf('HRfemaleSE.pdf',width=12,height=6)
 p
 dev.off()
-
-
-
-
 
 #-----------------------------------------------------------------------------------------
 #male
 male <- subset(survdata,Sex=='m')
 
 se <- NULL
-for (i in unique(dat2$Cohort)) {
+for (i in unique(male$Cohort)) {
   y <- subset(male,Cohort==i)
   
   v <- unique(subset(y,Group!='Control')$Combination)
@@ -141,18 +99,15 @@ for (i in unique(dat2$Cohort)) {
                                                    }
   #Stop cluster
   stopCluster(cluster)
-  
-  
-  
+ 
 }
 
+save(se,'HRmaleSE.Rdata')
 
-Write(se,'HRmaleSE.Rdata')
-
-
+#------------------------------------------------------------------------
 #plot
 p <- NULL
-for (i in unique(dat2$Cohort)) {
+for (i in unique(male$Cohort)) {
   temp <- se[[i]]
   p2 <- NULL
   for (j in 1:length(temp)) {
@@ -172,29 +127,14 @@ for (i in unique(dat2$Cohort)) {
       geom_hline(yintercept=0, linetype="dashed", 
                  color = "black", size=1)+
       xlim(0,1500)
-    
-    
-    
+
   }
   p <- c(p,p2)
 }
-p[[1]]
 
-Graph('HRmaleSE.pdf',width=12,height=6)
+pdf('HRmaleSE.pdf',width=12,height=6)
 p
 dev.off()
-
-
-
-
-#--------------------------------------------------------------------------------------
-# End Program Body
-
-
-dependency.out <- finalize_dependency()
-
-
-
 
 
 
