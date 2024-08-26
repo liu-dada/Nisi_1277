@@ -1,57 +1,20 @@
 
-rm(list=ls())
-set.seed( 2011 )
-
-library(adapr)
-library(plyr)
-library(dplyr)
-library(survival)
 library(ggplot2)
-library(bshazard)
-library(scales)
-library(RColorBrewer)
-library(boot)
-library(tidyverse)
-library(tidyr)
-library(foreach)
-library(parallel)
-library(doParallel)
-
-source.file <-"bootvsse.R"
-project.id <- "Nisi_1277"
-source_info <- create_source_file_dir(source.description="Description of your program...")
-
-
-# Program body here
-
 #-----------------------------------------------------------------------------------------
-
-#=========================================================================================
 #boot from mf.R
-boot <- Load.branch('dall.Rdata')
-
-
-d <- NULL
-for (i in 1:15) {
-  d[[i]] <- Reduce(full_join,boot[[i]])
-}
-
-all <- Reduce(full_join,d)
-length(unique(all$var))
-
+boot <- Load.branch('dat_all.Rdata')
+all <- obj
 #------------------------------------
 #female
 f <- subset(all,sex=='Female')
 
 #male
 m <- subset(all,sex=='Male')
-
 #=========================================================================================
 #SE from se.R
-#--------------------------------------------------------------------------------------
 #female
-se <- Load.branch('HRfemaleSE.Rdata')
-
+load('HRfemaleSE.Rdata')
+se <- obj
 sef <- NULL
 for (i in 1:13) {
   temp <- se[[i]]
@@ -71,9 +34,7 @@ for (i in unique(f$var)) {
   temp <- subset(temp,time>=ini)
   
   temp2 <- subset(sef,name==i)
-  
- 
-  
+    
   pf[[i]] <- ggplot()+
     geom_line(data=temp,aes(x=time,y=value,linetype=stats,color='green'))+
     geom_hline(yintercept=0, linetype="dashed")+
@@ -90,13 +51,13 @@ for (i in unique(f$var)) {
     theme(legend.position="none")
 }
 
-Graph('HRfemale_boot_SE.pdf',width=12,height=6)
+pdf('HRfemale_boot_SE.pdf',width=12,height=6)
 pf
 dev.off()
 #--------------------------------------------------------------------------------------
 #male
-se <- Load.branch('HRmaleSE.Rdata')
-
+load('HRmaleSE.Rdata')
+se <- obj
 sef <- NULL
 for (i in 1:13) {
   temp <- se[[i]]
@@ -117,8 +78,6 @@ for (i in unique(m$var)) {
   
   temp2 <- subset(sef,name==i)
   
-  
-  
   pm[[i]] <- ggplot()+
     geom_line(data=temp,aes(x=time,y=value,linetype=stats,color='green'))+
     geom_hline(yintercept=0, linetype="dashed")+
@@ -135,28 +94,6 @@ for (i in unique(m$var)) {
     theme(legend.position="none")
 }
 
-Graph('HRmale_boot_SE.pdf',width=12,height=6)
+pdf('HRmale_boot_SE.pdf',width=12,height=6)
 pm
 dev.off()
-
-
-
-
-
-
-
-
-
-
-
-
-
-#--------------------------------------------------------------------------------------
-# End Program Body
-
-
-dependency.out <- finalize_dependency()
-
-
-
-
