@@ -3,8 +3,7 @@ hazardSE <- function(data,contr,var){
   temp <- subset(data, Combination%in%c(var,contr))
   ini <- unique(temp$treat)
   ini <- ini[!is.na(ini)]
-  temp <- subset(temp,Age>ini)
-  
+  temp <- subset(temp,Age>ini)  
 
 f.fit0 <- bshazard(Surv(Age,Dead)~Site, data=subset(temp, Combination==contr))
 f.fit1 <- bshazard(Surv(Age,Dead)~Site, data=subset(temp, Combination==var))
