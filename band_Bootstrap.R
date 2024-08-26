@@ -1,19 +1,28 @@
-library(ggplot2)
-library(ggeasy)
+rm(list=ls())
+set.seed( 2011 )
+
+library(adapr)
 library(plyr)
 library(dplyr)
-#-------------------------------------------------------------------------------------------
-#median survival
+library(survival)
+library(ggplot2)
+library(ggeasy)
+#-----------------------------------------------------------------------------
+source.file <-"band_Bootstrap.R"
+project.id <- "Nisi_1277"
+source_info <- create_source_file_dir(source.description="Description of your program...")
+#-----------------------------------------------------------------------------
+# load median survival
 med <- Load.branch('km.R/median.Rdata')
 
 dall <- Load.branch('dat_all.Rdata')
 #-----------------------------------------------------------------------------------------
-#2004
+# use year 2004
 d1 <- dall[[1]]
-#last
+# load last day
 last <- Load.branch('last04.Rdata')
 
-#find the max and min significant Mean
+# find the max and min significant Mean
 ss1 <- llply(d1,function(x) {
   wid <- spread(x, key = stats, value = value)
   wid <- subset(wid,upper<0|lower>0)
@@ -42,7 +51,7 @@ ss <- do.call(rbind, ss)
 m0 <- min(ss$min)
 m1 <- max(ss$max)
 
-#add a max and min Mean
+# add a max and min Mean
 ma <- data.frame(time=c(0,0.5,1),
                  sex='Female',
                  var='',
@@ -73,24 +82,18 @@ for (i in 1:length(d1)) {
   
   if(length(unique(aw0$mean2))==1)
     next
-  
-  
+    
   f <- subset(aw0,sex=='Female')
   m <- subset(aw0,sex=='Male')
   
-  #remove mean2 prior to st
-  
-  
+  # remove mean2 prior to st
+    
   firstf <- min(f$time[f$mean2!=0])
   lastf <- max(f$time[f$mean2!=0])
   
   firstm <- min(m$time[m$mean2!=0])
   lastm <- max(m$time[m$mean2!=0])
   
-  # f$m2 <- ifelse(f$mean2==0,0,ifelse(f$mean2<0,-1*2**(-10*f$mean2),2**(10*f$mean2)))
-  # m$m2 <- ifelse(m$mean2==0,0,ifelse(m$mean2<0,-1*2**(-10*m$mean2),2**(10*m$mean2)))
-  
- 
   f <- rbind(f,ma)
   m <- rbind(m,ma)
   
@@ -99,7 +102,7 @@ for (i in 1:length(d1)) {
   mf <- med2[med2$strata=='Sex=f','median']
   mm <- med2[med2$strata=='Sex=m','median']
   
-  #mark x axis
+  # mark x axis
   br <- data.frame(bre=c(0,400,800,1200,1600,last[i,'female'],st,firstf,lastf,mf),
                    co=c(rep('black',5),'red','red',rep('black',2),'purple'))
   br <- br[order(br$bre),]
@@ -116,14 +119,6 @@ for (i in 1:length(d1)) {
           axis.text.x = element_text(colour = br$co))+
     ylab(paste0(unique(a$var),' Female'))+
     easy_remove_axes(which='y',what = c("ticks",  "text", "line"))
-    # geom_vline(xintercept=st, linetype="dashed", color = "red",size=1)+
-    # geom_vline(xintercept=firstf, linetype="dashed", color = 'black',size=0.8)+
-    # geom_vline(xintercept=lastf, linetype="dashed", color = 'black',size=0.8)+
-    # geom_vline(xintercept=max(aw$time), linetype="dashed", color = 'gray',size=0.8)+
-    
-    
-    #annotate("text", x=last[i,'female'], y=3, label=max(aw$time), angle=0)
-  
   
   br <- data.frame(bre=c(0,400,800,1200,1600,last[i,'male'],st,firstm,lastm,mm),
                    co=c(rep('black',5),'red','red',rep('black',2),'purple'))
@@ -141,26 +136,10 @@ for (i in 1:length(d1)) {
           axis.text.x = element_text(colour = br$co))+
     ylab(paste0(unique(a$var),' Male'))+
     easy_remove_axes(which='y',what = c("ticks",  "text", "line"))
-    # geom_vline(xintercept=st, linetype="dashed", color = "red",size=1)+
-    # geom_vline(xintercept=firstm, linetype="dashed", color = 'black',size=0.8)+
-    # geom_vline(xintercept=lastm, linetype="dashed", color = 'black',size=0.8)+
-    # geom_vline(xintercept=max(aw$time), linetype="dashed", color = 'gray',size=0.8)+
-    #annotate("text", x=max(aw$time), y=3, label=max(aw$time), angle=90)
+
 }
 
-
-# Graph('female2004_v2.pdf', width=10, height=3)
-# #pdf(file='W:/Projects/Liu/Nisi_1277/Results/female2004_v1.pdf', width, height)
-# pf
-# dev.off()
-# 
-# Graph('male2004_v2.pdf', width=10, height=3)
-# #pdf(file='W:/Projects/Liu/Nisi_1277/Results/male2004_v1.pdf', width=10, height=3)
-# pm
-# dev.off()
-
-
-#png file
+# png file
 for (i in 1:length(pf)) {
   Graph(paste0('2004female_v2_',i,'.png'), width = 480*8, height = 480*4, res = 72*6)
   print(pf[[i]])
