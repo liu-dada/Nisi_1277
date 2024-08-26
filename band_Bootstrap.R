@@ -14,7 +14,6 @@ source_info <- create_source_file_dir(source.description="Description of your pr
 #-----------------------------------------------------------------------------
 # load median survival
 med <- Load.branch('km.R/median.Rdata')
-
 dall <- Load.branch('dat_all.Rdata')
 #-----------------------------------------------------------------------------------------
 # use year 2004
