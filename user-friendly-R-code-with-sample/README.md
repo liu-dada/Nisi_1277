@@ -1,5 +1,19 @@
-It contains a xlsx file and a R script for generating the output from bootstrap and asymptotic method, as well as several plots such as km plot, hazard ratio plots. 
+## Temporal Efficacy Profiler (TEP)
 
-Sample file.xlsx: sample dataset;
+This project focuses on the creation and validation of the TEP, a tool designed to assess and profile temporal efficacy on mortality hazard.
 
-TEP script.R: several R functions to calculate and visualize the outputs from bootstrap and asymptotic method, and export pgn files.
+Project Structure
+
+### 1. Paper-Related-R-Codes
+
+Description: This section contains all the R scripts used to create the TEP as described in the associated research paper.
+Usage: Utilize these codes to replicate the methodology and results presented in the paper.
+### 2. Simulation-Related-R-Codes
+
+Description: This section provides R scripts for simulation testing, which are used to validate the performance of the TEP.
+Usage: Use these codes to perform simulation studies and assess the robustness and accuracy of TEP under various scenarios.
+### 3. User-Friendly-R-Code-with-Sample
+
+Description: This section offers a user-friendly R script, accompanied by sample data, to facilitate the use of the TEP.
+Usage: This script is designed for easy adoption and quick application, enabling users to implement TEP with minimal setup.
+ 
