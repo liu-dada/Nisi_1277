@@ -1,19 +1,13 @@
-## Temporal Efficacy Profiler (TEP)
+### Introduction
 
-This project focuses on the creation and validation of the TEP, a tool designed to assess and profile temporal efficacy on mortality hazard.
+This R code script is designed to simplify the comparison between two groups using TEP, making it accessible for users at all levels. The folder includes an Excel file and an R script that generate outputs from bootstrap and asymptotic methods, along with several visualizations such as Kaplan-Meier (KM) plots, hazard ratio plots, and the band-plot featured in our manuscript.
 
-Project Structure
+## Contents
 
-### 1. Paper-Related-R-Codes
+Sample file.xlsx: A sample dataset to demonstrate the workflow.
 
-Description: This section contains all the R scripts used to create the TEP as described in the associated research paper.
-Usage: Utilize these codes to replicate the methodology and results presented in the paper.
-### 2. Simulation-Related-R-Codes
+TEP script.R: Contains multiple R functions to calculate and visualize outputs using bootstrap and asymptotic methods, with the option to export results as PNG files.
 
-Description: This section provides R scripts for simulation testing, which are used to validate the performance of the TEP.
-Usage: Use these codes to perform simulation studies and assess the robustness and accuracy of TEP under various scenarios.
-### 3. User-Friendly-R-Code-with-Sample
+Detailed instructions are embedded within the script to guide you through each step.
 
-Description: This section offers a user-friendly R script, accompanied by sample data, to facilitate the use of the TEP.
-Usage: This script is designed for easy adoption and quick application, enabling users to implement TEP with minimal setup.
- 
+For assistance or to report any issues, please contact the corresponding authors or the Nathan Shock Center at UT Health San Antonio. (To request services, visit: https://deb.uthscsa.edu/Stars/Library/pub/stars_request.jsp
