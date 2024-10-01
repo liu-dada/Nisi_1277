@@ -327,30 +327,55 @@ all <- all_func(t, contr="Control", var="GTE")
 # Step 4, export the results.
 # Data files will be generated in the same location as the script.
 
+# The output consists of a list with 8 elements:
+# 1. Dataframe (Asymptotic Method): A dataframe with 8 columns representing:
+#    time: Time point.
+#    h0: Hazard rate for the control group.
+#    se0: Standard error for the control group.
+#    h1: Hazard rate for the treatment group.
+#    se1: Standard error for the treatment group.
+#    hr: Hazard ratio comparing treatment to control.
+#    loghr: Logarithm of the hazard ratio.
+#    var: Variance of the log hazard ratio.
+#    low: Lower confidence interval of the log hazard ratio.
+#    up: Upper confidence interval of the log hazard ratio.
+#    name: Name of the treatment group.
 write.csv(all[[1]],'hr_asymptotic.csv')
 
+# 2. Dataframe (Bootstrap Method): A dataframe with 5 columns representing:
+#    time: Time point.
+#    loghr: Logarithm of the hazard ratio.
+#    low: Lower confidence interval of the log hazard ratio.
+#    up: Upper confidence interval of the log hazard ratio.
+#    name: Name of the treatment group.
 write.csv(all[[2]],'hr_bootstrap.csv')
 
+# 3. Kaplan-Meier Curve: A Kaplan-Meier survival curve comparing treatment versus control, p value generated using a log-rank test.
 png('km.png',width = 480*8, height = 480*4, res = 72*6)
 print(all[[3]])
 dev.off()
 
+# 4. Hazard Ratio Plot (Asymptotic Method): A plot of the hazard ratio calculated using the asymptotic method.
 png('hrplot_asymptotic.png',width = 480*8, height = 480*4, res = 72*6)
 print(all[[4]])
 dev.off()
 
+# 5. Hazard Ratio Plot (Bootstrap Method): A plot of the hazard ratio calculated using the bootstrap method.
 png('hrplot_bootstrap.png',width = 480*8, height = 480*4, res = 72*6)
 print(all[[5]])
 dev.off()
 
+# 6. Hazard Rate Plot: A plot showing the hazard rates of both the treatment and control groups.
 png('hazardplot.png',width = 480*8, height = 480*4, res = 72*6)
 print(all[[6]])
 dev.off()
 
+# 7. Band Plot (Asymptotic Method): A band plot generated using the asymptotic method.
 png('bandplot_asymptotic.png',width = 480*8, height = 480*4, res = 72*6)
 print(all[[7]])
 dev.off()
 
+# 8. Band Plot (Bootstrap Method): A band plot generated using the bootstrap method.
 png('bandplot_bootstrap.png', width = 480*8, height = 480*4, res = 72*6)
 print(all[[8]])
 dev.off()
